@@ -1,2 +1,4 @@
 node_modules
 .env
+pgadmin-data
+docker-compose.yml

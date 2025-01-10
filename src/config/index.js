@@ -12,7 +12,7 @@ const configExpress = (app) => {
   app.use(express.static(path.join(process.cwd(), "src", "public")));
 
   // hbs
- // app.set("views", path.join(process.cwd(), "src", "views")); // views dentro de src
+  app.set("views", path.join(process.cwd(), "src", "views")); // views dentro de src
   app.engine("hbs", hbs.engine);
   app.set("view engine", "hbs");
 };

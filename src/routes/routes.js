@@ -1,5 +1,4 @@
 
 
-res.json
 
 // res.render()

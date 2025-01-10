@@ -1,7 +1,7 @@
 import db from "../config/db.js";
 import { DataTypes } from "sequelize";
 
-const User = db.define('User',{
+const User = db.define('Users',{
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -27,10 +27,10 @@ const User = db.define('User',{
         }
     },
     role: {
-        type: DataTypes.ENUM('user', 'admin'),
-        defaultValue: 'user',
+        type: DataTypes.ENUM('adopt', 'administrador'),
+        defaultValue: 'adopt',
         validate: {
-            isIn: [['user', 'admin'], 'Invalid role: debe ser user o admin']
+            isIn: [['adopt', 'administrador'], 'Invalid role: debe ser adopt o administrador']
         }
     }
 })
