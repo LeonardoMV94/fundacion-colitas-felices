@@ -1,0 +1,25 @@
+<h1>Lista de Mascotas</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Especie</th>
+      <th>Raza</th>
+      <th>Estado de Adopción</th>
+      <th>Editar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each mascotas}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.species}}</td>
+        <td>{{this.breed}}</td>
+        <td>{{this.adoption_status}}</td>
+        <td><a href="/mascotas/editar/{{this.id}}"><button>Editar</button></a></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
