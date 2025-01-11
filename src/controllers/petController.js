@@ -97,7 +97,7 @@ const cancelarAdoption = async (req, res) => {
     const mascotaNew = await Pet.findByPk(id);
     res.render("onePet", {
       mascota: mascotaNew.toJSON(),
-      mensaje: "solicitud cancelada", // mensajes flash
+      mensaje: "solicitud cancelada exitosamente", // mensajes flash
     });
   } catch (error) {
     res.render("500", {
