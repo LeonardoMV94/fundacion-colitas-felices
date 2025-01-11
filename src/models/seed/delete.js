@@ -9,7 +9,7 @@ import Adoption from "../adoption.model.js";
     await db.authenticate();
     console.log("✔️ Base de datos conectada!");
 
-    await Adoption.drop({ cascade: true });
+    await Adoption.drop({ cascade: true }); 
     await Pet.drop({ cascade: true });
     await User.drop({ cascade: true });
   } catch (error) {

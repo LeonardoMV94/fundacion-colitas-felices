@@ -18,7 +18,18 @@ const initDB = async () => {
     console.log("✔️ Base de datos conectada!");
 
     // administracion de solicitudes
-    const adoptions = await Adoption.findAll({
+    /*
+    SELECT 
+        adoptions.id, 
+        adoptions.status, 
+        adoptions.request_date, 
+        users.name AS user_name, 
+        pets.name AS pet_name
+      FROM adoptions
+      JOIN users ON adoptions.userId = users.id
+      JOIN pets ON adoptions.petId = pets.id
+    */
+    const adoptions = await Adoption.findAll({ 
       attributes: ['id','status','request_date',],
       include: [
         {
@@ -32,6 +43,7 @@ const initDB = async () => {
       ],
       
     });
+    
     console.log(adoptions.map((adoption) => adoption.toJSON()));
 
     console.log('#####################')
@@ -42,9 +54,12 @@ const initDB = async () => {
     console.log( mascotas.map(m => m.toJSON()))
 
     console.log('#####################')
+
+    // filtro por status de mascota
+    const status = 'Sin solicitud' // <- variable que vendra de un form req.body.select
     const mascotas2 = await  Pet.findAll({
       where: {
-        adoption_status: 'Sin solicitud'
+        adoption_status: status
       },
       attributes: ['id','name', 'species','breed','adoption_status']
     })
