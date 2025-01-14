@@ -1,26 +1,37 @@
-<h1>Detalles de la Mascota</h1>
-<div>
-  <img src="{{mascota.photo_url}}" alt="Foto de {{mascota.name}}" />
-</div>
-<div>
-    {{#if mensaje}}
-        <div>{{mensaje}}</div>
-    {{/if}}
-  <p><strong>ID:</strong> {{mascota.id}}</p>
-  <p><strong>Nombre:</strong> {{mascota.name}}</p>
-  <p><strong>Especie:</strong> {{mascota.species}}</p>
-  <p><strong>Raza:</strong> {{mascota.breed}}</p>
-  <p><strong>Estado de Adopción:</strong> {{mascota.adoption_status}}</p>
-  <p><strong>Fecha de Ingreso:</strong> {{mascota.entry_date}}</p>
-    {{#if (eq mascota.adoption_status 'Sin solicitud')}}
-        <form action="/mascotas/{{mascota.id}}" method="post">    
-                <button type="submit">Adoptar</button>
-        </form>
-    {{else}}
-        <button type="submit" disabled>En proceso</button>
-        <form action="/mascotas/cancelar/{{mascota.id}}" method="post">
-            <button type="submit">Cancelar Solicitud</button>
-        </form>
-    {{/if}}
-  
-</div>
+ <div class="container py-5">
+        {{#if mensaje}}
+            <div class="alert alert-success">{{mensaje}}</div> 
+        {{/if}}
+        <div class="row align-items-center">
+          
+            <div class="col-md-6">
+                <img src="" alt="Imagen de mascota" class="img-fluid" width="600" height="400">
+            </div>
+            
+            <div class="col-md-6">
+                <h1 class="mb-4">Nombre mascota</h1>
+                <p><strong>especie</strong></p>
+                <p>raza</p>
+                <p>estado</p>
+                {{#if token}}
+                    {{#if (eq mascota.adoption_status 'Sin solicitud')}}
+                        <form action="/mascotas/{{mascota.id}}" method="post">    
+                                <button class="btn btn-primary" type="submit">Adoptar</button>
+                        </form>
+                    {{else}}
+                        <button class="btn btn-primary disabled" type="submit">En proceso</button>
+                        <form action="/mascotas/cancelar/{{mascota.id}}" method="post">
+                            <button class="btn btn-primary" type="submit">Cancelar Solicitud</button>
+                        </form>
+                    {{/if}}
+                {{else}}
+                    <a href="/auth/login">
+                        <button class="btn btn-primary" type="submit">
+                            Iniciar sesion para adoptar
+                        </button>
+                    </a>
+                {{/if}}
+                
+            </div>
+        </div>
+    </div>

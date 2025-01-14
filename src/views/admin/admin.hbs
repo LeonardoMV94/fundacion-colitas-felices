@@ -1,0 +1,46 @@
+<h1>Administracion de Mascotas</h1>
+<hr>
+<a href="/admin/crearPet"><button type="button" class="btn btn-success">Agregar Mascota</button>
+</a>
+
+<form action="./" method="post">
+<label for="status">Filtrar por estado de adopción:</label>
+    <select name="status" id="status">
+         <option value="Mostrar todos" {{#if (eq status "Mostrar todos")}}selected{{/if}}>Mostrar todos</option>
+        <option value="Sin solicitud" {{#if (eq status "Sin solicitud")}}selected{{/if}}>Sin solicitud</option>
+        <option value="Aprobada" {{#if (eq status "Aprobada")}}selected{{/if}}>Aprobada</option>
+        <option value="Rechazada" {{#if (eq status "Rechazada")}}selected{{/if}}>Rechazada</option>
+        <option value="Pendiente" {{#if (eq status "Pendiente")}}selected{{/if}}>Pendiente</option>
+    </select>
+<label for="orden">Ordenar por el nombre de la mascota:</label>
+    <select name="orden" id="orden">
+         <option value="asc" {{#if (eq orden "asc")}}selected{{/if}}>A-Z</option>
+        <option value="desc" {{#if (eq orden "desc")}}selected{{/if}}>Z-A</option>
+    </select>
+    <button type="submit">Filtrar y/o Ordenar</button>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Especie</th>
+      <th scope="col">Raza</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+   <tbody>
+    {{#each mascotas}}
+      <tr>
+        
+        <td>{{this.name}}</td>
+        <td>{{this.species}}</td>
+        <td>{{this.breed}}</td>
+        <td>{{this.adoption_status}}</td>
+        <td><a href="/admin/editar/{{this.id}}"><button type="button" class="btn btn-primary">Editar</button></a></td>
+         <td><a href="/admin/eliminar/{{this.id}}"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

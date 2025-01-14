@@ -9,7 +9,7 @@ import Adoption from "../adoption.model.js";
     await db.authenticate();
     console.log("✔️ Base de datos conectada!");
 
-    await User.bulkCreate([
+    await User.bulkCreate([ 
       {
         name: "admin",
         email: "admin@correo.com",

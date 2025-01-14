@@ -1,0 +1,26 @@
+<h1>Detalles de la Mascota</h1>
+<div>
+  <img src="{{mascota.photo_url}}" alt="Foto de {{mascota.name}}" />
+</div>
+<div>
+    {{#if mensaje}}
+        <div>{{mensaje}}</div>
+    {{/if}}
+  <p><strong>ID:</strong> {{mascota.id}}</p>
+  <p><strong>Nombre:</strong> {{mascota.name}}</p>
+  <p><strong>Especie:</strong> {{mascota.species}}</p>
+  <p><strong>Raza:</strong> {{mascota.breed}}</p>
+  <p><strong>Estado de Adopción:</strong> {{mascota.adoption_status}}</p>
+  <p><strong>Fecha de Ingreso:</strong> {{mascota.entry_date}}</p>
+    {{#if (eq mascota.adoption_status 'Sin solicitud')}}
+        <form action="/mascotas/{{mascota.id}}" method="post">    
+                <button type="submit">Adoptar</button>
+        </form>
+    {{else}}
+        <button type="submit" disabled>En proceso</button>
+        <form action="/mascotas/cancelar/{{mascota.id}}" method="post">
+            <button type="submit">Cancelar Solicitud</button>
+        </form>
+    {{/if}}
+  
+</div>

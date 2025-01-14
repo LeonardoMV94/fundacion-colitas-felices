@@ -1,7 +1,7 @@
 import Pet from "../models/pet.model.js";
 import { Op } from "sequelize";
 
-const petController = async (req, res) => {
+async function petController(req, res) {
   // todas las mascotas que tengan por adoption_status 'Sin solicitud'
   try {
     const mascotas = await Pet.findAll({
@@ -10,22 +10,24 @@ const petController = async (req, res) => {
           [Op.or]: ["Sin solicitud", "Pendiente"],
         },
       },
-      attributes: ["id", "name", "species", "breed", 'adoption_status'],
+      attributes: ["id", "name", "species", "breed", "adoption_status"],
     });
 
-    const mascotasParsed = mascotas.map((m) => m.toJSON());
+    const mascotasParsed = mascotas.map((mascota) => mascota.toJSON());
 
     res.render("pet", {
-      titulo: "Fundacion | caremondae",
-      estilos: "home",
-      mascotas: mascotasParsed,
+      titulo: "Fundacion | caremondae", // <- main.hbs
+      estilos: "home", // <- main.hbs
+      mascotas: mascotasParsed, // <- pet.hbs
     });
   } catch (error) {
+    console.log(error);
+
     res.render("500", {
-      error: "hubo un error en el servidor",
+      errorDiv: "hubo un error en el servidor",
     });
   }
-};
+}
 
 const onePetController = async (req, res) => {
   try {
@@ -37,6 +39,7 @@ const onePetController = async (req, res) => {
     }
     res.render("onePet", {
       mascota: mascota.toJSON(),
+      
     });
   } catch (error) {
     res.render("500", {
@@ -86,7 +89,7 @@ const cancelarAdoption = async (req, res) => {
       },
       { where: { id: id } }
     );
-    console.log(affected)
+    console.log(affected);
     if (affected <= 0) {
       res.render("onePet", {
         mascota: mascota.toJSON(),

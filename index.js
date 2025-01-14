@@ -3,13 +3,14 @@ import env from "./env.js";
 import configExpress from './src/config/index.js'
 import initDB from './src/models/index.js'
 import routes from "./src/routes/routes.js";
+import middlewareGlobales from './src/config/middlewaresGlobales.js'
 
 const app = express();
 
 // config -> hbs cors json urlEncoded
 configExpress(app)
 // midlewares -> 
-
+middlewareGlobales(app)
 // routes -> rutas
 routes(app)
 
