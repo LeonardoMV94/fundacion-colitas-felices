@@ -74,6 +74,57 @@ const solicitudAdopcionMascota = async (req, res) => {
   }
 };
 
+const editarMascotaGet = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const mascota = await Pet.findByPk(id);
+
+    res.render("editarPet", {
+      mascota: mascota.toJSON()
+    });
+  } catch (error) {
+    res.render("500", {
+      error: "hubo un error en el servidor",
+    });
+  }
+}
+
+const editarMascota = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const formularioEditar = req.body
+
+    const count = await Pet.count()
+
+    const [affected] = await Pet.update(
+      {
+        ...formularioEditar,
+
+      },
+      { where: { id: id } }
+    );
+
+    const mascotaNew = await Pet.findByPk(id);
+
+    if(affected <= 0){
+      res.render("editarPet", {
+        mascota: mascotaNew.toJSON(),
+        mensaje: "no se actualizaron los datos", // mensajes flash
+      });
+    } else {
+      res.render("editarPet", {
+        mascota: mascotaNew.toJSON(),
+        mensaje: "Se actualizaron los datos correctamente", // mensajes flash
+      });
+    }    
+    
+  } catch (error) {
+    res.render("500", {
+      error: "hubo un error en el servidor",
+    });
+  }
+}
+
 const cancelarAdoption = async (req, res) => {
   try {
     const { id } = req.params;
@@ -114,4 +165,6 @@ export {
   onePetController,
   solicitudAdopcionMascota,
   cancelarAdoption,
+  editarMascota,
+  editarMascotaGet
 };
