@@ -1,6 +1,8 @@
-<h1>Administracion de Mascotas</h1>
+
+<div class="container">
+  <h1 class="pt-3">Administracion de Mascotas</h1>
 <hr>
-<a href="/admin/crearPet"><button type="button" class="btn btn-success">Agregar Mascota</button>
+<a href="/admin/agregarPet"><button type="button" class="btn btn-success">Agregar Mascota</button>
 </a>
 
 <form action="./" method="post">
@@ -20,7 +22,7 @@
     <button type="submit">Filtrar y/o Ordenar</button>
 </form>
 
-<table class="table table-striped">
+<table class="table table-striped my-5">
   <thead>
     <tr>
       <th scope="col">Nombre</th>
@@ -33,14 +35,14 @@
    <tbody>
     {{#each mascotas}}
       <tr>
-        
         <td>{{this.name}}</td>
         <td>{{this.species}}</td>
         <td>{{this.breed}}</td>
         <td>{{this.adoption_status}}</td>
-        <td><a href="/admin/editar/{{this.id}}"><button type="button" class="btn btn-primary">Editar</button></a></td>
-         <td><a href="/admin/eliminar/{{this.id}}"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+        <td><a href="/admin/editar/{{this.id}}"><button type="button" class="btn btn-primary">Editar</button></a>
+         <a href="/admin/eliminar/{{this.id}}"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
       </tr>
     {{/each}}
   </tbody>
 </table>
+</div>

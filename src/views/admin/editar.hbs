@@ -1,0 +1,40 @@
+
+
+<div class="container">
+     <h1 class="pt-3">Agregar Mascota</h1>
+<hr>
+<form action="/admin/editar/{{mascota.id}}" method="post">
+
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" id="name" placeholder="Nombre" name="name"  value="{{mascota.name}}" required> 
+  <label for="floatingInput">Nombre</label>
+</div>
+<div class="form-floating">
+  <input type="text" class="form-control" id="species" placeholder="Especie" name="species" value="{{mascota.species}}" required>
+  <label for="floatingPassword">Especie</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" id="breed" placeholder="Raza" name="breed" value="{{mascota.species}}"  required>
+  <label for="floatingInput">Raza</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="date" class="form-control" id="entry_date" name="entry_date" value="{{mascota.entry_date}}" required>
+  <label for="floatingInput">Fecha de Ingreso</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" id="photo_url" placeholder="photo_url" name="photo_url" value="{{mascota.photo_url}}" required>
+  <label for="floatingInput">Photo URL</label>
+</div>
+<div class="form-floating mb-5">
+   <label for="adoption_status">Estado de Adopción:</label>
+    <select name="adoption_status" id="adoption_status" class="form-select pb-5" aria-label="Default select example">>
+        <option value="Sin solicitud" {{#if (eq mascota.adoption_status "Sin solicitud")}}selected{{/if}}>Sin solicitud</option>
+        <option value="Aprobada" {{#if (eq mascota.adoption_status "Aprobada")}}selected{{/if}}>Aprobada</option>
+        <option value="Rechazada" {{#if (eq mascota.adoption_status "Rechazada")}}selected{{/if}}>Rechazada</option>
+        <option value="Pendiente" {{#if (eq mascota.adoption_status "Pendiente")}}selected{{/if}}>Pendiente</option>
+    </select>
+</div>
+   <button type="submit" class="btn btn-success">Editar Mascota</button>
+
+</form>
+</div>
