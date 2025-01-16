@@ -9,9 +9,9 @@ import {
   editarMascotaGet
 } from "../controllers/petController.js";
 import middlewareJWT from "../config/auth.middleware.js";
-import { adminPetController } from "../controllers/admin.controller.js";
-import middlewareValidadorFormEditPet from '../models/schema/validarFormularioEditarPet.js'
 
+import { adminPetController, adminPetControllerAgregarForm, adminPetControllerAgregar, adminPetControllerEdit } from "../controllers/admin.controller.js";
+import middlewareValidadorFormEditPet from '../models/schema/validarFormularioEditarPet.js'
 
 const routes = (app) => {
   const router = Router();
@@ -27,8 +27,14 @@ const routes = (app) => {
   // admin
 
   router.get("/admin/mascotas", middlewareJWT, adminPetController);
+
+  router.post("/admin/mascotas", middlewareJWT, adminPetController);
+  router.get("/admin/agregarPet", middlewareJWT, adminPetControllerAgregarForm);
+  router.post("/admin/agregarPet", middlewareJWT, adminPetControllerAgregar);
+  router.get("/admin/editar/:id",  middlewareJWT, adminPetControllerEdit);
   router.get("/admin/mascotas/editar/:id",  editarMascotaGet);
   router.post("/admin/mascotas/editar/:id",  middlewareValidadorFormEditPet, editarMascota);
+
 
   // auth
 
