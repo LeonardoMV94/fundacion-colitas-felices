@@ -1,5 +1,7 @@
+import { Op } from 'sequelize';
 import Pet from '../models/pet.model.js'
-
+import Adoption from '../models/adoption.model.js';
+import User from '../models/user.model.js';
 
 const adminPetController = async(req, res) => {
   try {
@@ -88,4 +90,134 @@ const adminPetControllerEdit = async(req, res) => {
 }
 }
 
-export { adminPetController, adminPetControllerAgregarForm, adminPetControllerAgregar, adminPetControllerEdit };
+const adminPetControllerEditSave = async(req, res) => {
+  try {
+    const { name, species, breed, adoption_status, entry_date, photo_url } = req.body;
+    const mascota = await Pet.findByPk(req.params.id);
+    if (!mascota) {
+        return res.status(404).render('404', { error: 'Mascota no encontrada' });
+    }
+    await mascota.update({
+        name,
+        species,
+        breed,
+        adoption_status,
+        entry_date,
+        photo_url
+    });
+    res.render('admin/petActualizada', {
+        message: 'Mascota actualizada correctamente',
+        mascota: mascota.toJSON()
+    });
+} catch (error) {
+    console.error(error);
+    res.status(500).render('500', { error: 'Hubo un error en el servidor' });
+}
+}
+
+const adminPetEliminar = async(req, res) => {
+  try {
+    const mascota = await Pet.findByPk(req.params.id);
+    if (!mascota) {
+        return res.status(404).render('404', { error: 'Mascota no encontrada' });
+    }
+    await mascota.destroy();
+    res.render('admin/petEliminada', {
+        message: 'Mascota eliminada correctamente',
+        mascota: mascota.toJSON()
+    });
+} catch (error) {
+    console.error(error);
+    res.status(500).render('500', { error: 'Hubo un error en el servidor' });
+}
+}
+
+const adminSolicitudes = async(req, res) => {
+  try {
+    const solicitudes = await Adoption.findAll({
+        where: {
+            status: ['Pendiente', 'Aprobada', 'Rechazada']
+        },
+        include: [
+            {
+                model: Pet,
+                attributes: ['name'],
+                as: 'Pet'
+            },
+            {
+                model: User,
+                attributes: ['name'],
+                as: 'User'
+            }
+        ],
+     
+    });
+    res.render('admin/solicitudes', {
+        solicitudes: solicitudes.map(solicitud => solicitud.toJSON()),
+      
+    });
+} catch (error) {
+    console.error(error);
+    res.status(500).render('500', { error: 'Hubo un error en el servidor' });
+}
+}
+
+const adminSolicitudAprobar = async(req, res) => {
+  try {
+    const solicitud = await Adoption.findByPk(req.params.id, {
+      include: [Pet, User]
+    });
+    if (!solicitud) {
+      console.log('solicitud no encontrada');
+      return res.status(404).render('404', { error: 'Solicitud no encontrada' });
+    }
+    await Adoption.update(
+      { status: 'Aprobada' },
+      { where: { id: req.params.id } }
+    );
+
+    await Pet.update(
+      { adoption_status: 'Aprobada' },
+      { where: { id: solicitud.petId } }
+    );
+
+    let newSolicitud = await Adoption.findByPk(req.params.id, {
+      include: [Pet, User]
+    });
+    res.render('admin/estadoSolicitud', {
+      message: 'Solicitud aprobada correctamente',
+      solicitud: newSolicitud.toJSON()
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('500', { error: 'Hubo un error en el servidor' });
+  }
+};
+
+const adminSolicitudDenegar = async(req, res) => {
+  try {
+    const solicitud = await Adoption.findByPk(req.params.id, {
+      include: [Pet, User]
+    });
+    if (!solicitud) {
+      console.log('solicitud no encontrada');
+      return res.status(404).render('404', { error: 'Solicitud no encontrada' });
+    }
+    await Adoption.update(
+      { status: 'Rechazada' },
+      { where: { id: req.params.id } }
+    );
+
+    let newSolicitud = await Adoption.findByPk(req.params.id, {
+      include: [Pet, User]
+    });
+    res.render('admin/estadoSolicitud', {
+      message: 'Solicitud rechazada correctamente',
+      solicitud: newSolicitud.toJSON()
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('500', { error: 'Hubo un error en el servidor' });
+  }
+}
+export { adminPetController, adminPetControllerAgregarForm, adminPetControllerAgregar, adminPetControllerEdit, adminPetControllerEditSave, adminPetEliminar, adminSolicitudes, adminSolicitudAprobar, adminSolicitudDenegar };

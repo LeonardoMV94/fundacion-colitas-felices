@@ -1,0 +1,15 @@
+    <div class="container mt-5">
+        <h1>Estado de Solicitud</h1>
+        <p>{{message}}</p>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Detalles de la Solicitud</h5>
+                <p class="card-text"><strong>ID de Solicitud:</strong> {{solicitud.id}}</p>
+                <p class="card-text"><strong>Estado:</strong> {{solicitud.status}}</p>
+                <p class="card-text"><strong>Fecha de Solicitud:</strong> {{formatDate solicitud.request_date}}</p>
+                <p class="card-text"><strong>Mascota:</strong> {{solicitud.Pet.name}}</p>
+                <p class="card-text"><strong>Usuario:</strong> {{solicitud.User.name}}</p>
+            </div>
+        </div>
+        <a href="/admin/solicitudes" class="btn btn-primary mt-3">Volver a Solicitudes</a>
+    </div>

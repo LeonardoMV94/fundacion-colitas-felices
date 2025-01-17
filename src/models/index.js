@@ -11,7 +11,7 @@ const initDB = async () => {
     User.hasMany(Adoption, { foreignKey: "userId" }); // User -> Adoption
     Adoption.belongsTo(User, { foreignKey: "userId" }); // Adoption -> User
 
-    Pet.hasMany(Adoption, { foreignKey: "petId" }); // Pet -> Adoption
+    Pet.hasMany(Adoption, { foreignKey: "petId", onDelete: 'CASCADE' }); // Pet -> Adoption
     Adoption.belongsTo(Pet, { foreignKey: "petId" }); // Adoption -> Pet
 
     await db.sync();
