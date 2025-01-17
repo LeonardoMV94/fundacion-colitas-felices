@@ -10,7 +10,7 @@ import {
 } from "../controllers/petController.js";
 import middlewareJWT from "../config/auth.middleware.js";
 
-import { adminPetController, adminPetControllerAgregarForm, adminPetControllerAgregar, adminPetControllerEdit } from "../controllers/admin.controller.js";
+import { adminPetController, adminPetControllerAgregarForm, adminPetControllerAgregar, adminPetControllerEdit, adminPetControllerEditSave, adminPetEliminar, adminSolicitudes, adminSolicitudAprobar, adminSolicitudDenegar } from "../controllers/admin.controller.js";
 import middlewareValidadorFormEditPet from '../models/schema/validarFormularioEditarPet.js'
 
 const routes = (app) => {
@@ -32,6 +32,12 @@ const routes = (app) => {
   router.get("/admin/agregarPet", middlewareJWT, adminPetControllerAgregarForm);
   router.post("/admin/agregarPet", middlewareJWT, adminPetControllerAgregar);
   router.get("/admin/editar/:id",  middlewareJWT, adminPetControllerEdit);
+  router.post("/admin/editar/:id",  middlewareJWT, adminPetControllerEditSave);
+  router.get("/admin/eliminar/:id", middlewareJWT, adminPetEliminar);
+  router.get("/admin/solicitudes/", middlewareJWT, adminSolicitudes);
+  router.get("/admin/solicitud/aprobar/:id", adminSolicitudAprobar);
+  router.get("/admin/solicitud/denegar/:id", adminSolicitudDenegar);
+
   router.get("/admin/mascotas/editar/:id",  editarMascotaGet);
   router.post("/admin/mascotas/editar/:id",  middlewareValidadorFormEditPet, editarMascota);
 

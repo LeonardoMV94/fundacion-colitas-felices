@@ -1,32 +1,39 @@
+<div class="container">
 <h1>Administracion de Mascotas</h1>
 <hr>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Especie</th>
-      <th scope="col">Raza</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Mascota 
+        <button id="sortMascotaAsc" class="btn btn-link p-0">↑</button>
+        <button id="sortMascotaDesc" class="btn btn-link p-0">↓</button>
+      </th>
+      <th scope="col">Usuario 
+        <button id="sortUsuarioAsc" class="btn btn-link p-0">↑</button>
+        <button id="sortUsuarioDesc" class="btn btn-link p-0">↓</button>
+      </th>
       <th scope="col">Estado</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
-   <tbody>
+  <tbody id="solicitudesBody">
     {{#each solicitudes}}
       <tr>
-        
-        <td>{{this.request_date}}</td>
-        <td>{{this.user.name}}</td>
-        <td>{{this.pet.name}}</td>
+        <td>{{formatDate this.request_date}}</td>
+        <td>{{this.Pet.name}}</td>
+        <td>{{this.User.name}}</td>
         <td>{{this.status}}</td>
-        {{#if (eq this.status "Aprobada")}}
-            <td><a href="/solicitud/editar/{{this.id}}"><button type="button" class="btn btn-success disabled">Aprovar</button></a></td>
-            <td><a href="/solicitud/eliminar/{{this.id}}"><button type="button" class="btn btn-danger disabled">Denegar</button></a></td>
+        {{#if (or (eq this.status "Aprobada") (eq this.status "Rechazada"))}}
+          <td><button type="button" class="btn btn-success disabled">Aprovar</button></td>
+          <td><button type="button" class="btn btn-danger disabled">Denegar</button></td>
         {{else}}
-            <td><a href="/solicitud/editar/{{this.id}}"><button type="button" class="btn btn-success ">Aprovar</button></a></td>
-            <td><a href="/solicitud/eliminar/{{this.id}}"><button type="button" class="btn btn-danger">Denegar</button></a></td>
+          <td><a href="/admin/solicitud/aprobar/{{this.id}}"><button type="button" class="btn btn-success">Aprovar</button></a></td>
+          <td><a href="/admin/solicitud/denegar/{{this.id}}"><button type="button" class="btn btn-danger">Denegar</button></a></td>
         {{/if}}
       </tr>
     {{/each}}
   </tbody>
 </table>
+</div>

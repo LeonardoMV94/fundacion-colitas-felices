@@ -26,8 +26,8 @@
   <label for="floatingInput">Photo URL</label>
 </div>
 <div class="form-floating mb-5">
-   <label for="adoption_status">Estado de Adopción:</label>
-    <select name="adoption_status" id="adoption_status" class="form-select pb-5" aria-label="Default select example">>
+  <label for="adoption_status" class="pb-5">Estado de Adopción:</label>
+<select name="adoption_status" id="adoption_status" class="form-select p-5" aria-label="Default select example">
         <option value="Sin solicitud" {{#if (eq mascota.adoption_status "Sin solicitud")}}selected{{/if}}>Sin solicitud</option>
         <option value="Aprobada" {{#if (eq mascota.adoption_status "Aprobada")}}selected{{/if}}>Aprobada</option>
         <option value="Rechazada" {{#if (eq mascota.adoption_status "Rechazada")}}selected{{/if}}>Rechazada</option>
