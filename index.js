@@ -1,7 +1,6 @@
 import express from "express";
 import env from "./env.js";
 import configExpress from './src/config/index.js'
-import initDB from './src/models/index.js'
 import routes from "./src/routes/routes.js";
 import middlewareGlobales from './src/config/middlewaresGlobales.js'
 
@@ -15,6 +14,5 @@ middlewareGlobales(app)
 routes(app)
 
 app.listen(env.port, async () => {
-  console.log(`Server is running on http://localhost:${env.port}/`);
-  await initDB()
+  console.log(`Server is running on http://localhost:${env.port}/`);  
 });

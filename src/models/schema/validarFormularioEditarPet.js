@@ -1,6 +1,7 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 const middlewareValidadorFormEditPet = [
+    param('id').isNumeric('El parametro id debe ser un numero positivo').isInt({ min: 1 }),
     body('name').isString('debe ser un string').isLength({min: 3, max: 50}),
     body('species').isString('debe ser un string').isLength({min: 3, max: 50}),
     body('breed').isString('debe ser un string').isLength({min: 3, max: 50}),

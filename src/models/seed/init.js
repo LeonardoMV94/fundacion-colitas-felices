@@ -3,24 +3,35 @@ import db from "../../config/db.js";
 import User from "../user.model.js";
 import Pet from "../pet.model.js";
 import Adoption from "../adoption.model.js";
+import bcrypt from 'bcrypt'
 
 (async () => {
   try {
     await db.authenticate();
     console.log("✔️ Base de datos conectada!");
 
+    // relations
+    User.hasMany(Adoption, { foreignKey: "userId" }); // User -> Adoption
+    Adoption.belongsTo(User, { foreignKey: "userId" }); // Adoption -> User
+
+    Pet.hasMany(Adoption, { foreignKey: "petId", onDelete: 'CASCADE' }); // Pet -> Adoption
+    Adoption.belongsTo(Pet, { foreignKey: "petId" }); // Adoption -> Pet
+
+    await db.sync();
+    console.log("Tablas y sus relaciones creadas")
+
     await User.bulkCreate([ 
       {
         name: "admin",
         email: "admin@correo.com",
-        password: "admin123",
-        Rol: "administrador",
+        password: await bcrypt.hash('admin123',10),
+        role: "administrador",
       },
       {
         name: "user",
         email: "user@asdasd.cl",
-        password: "user123",
-        Rol: "adopt",
+        password: await bcrypt.hash("user123",10),
+        role: "adopt",
       },
     ]);
 

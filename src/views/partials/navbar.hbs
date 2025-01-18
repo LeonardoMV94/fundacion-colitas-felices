@@ -12,12 +12,21 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/mascotas">Catalogo de Mascotas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/registro">Registrate</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/login">Iniciar Sesión</a>
-                    </li>
+                    {{#if nombre}}
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" href="#">Hola {{nombre}}</a>                            
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/logout">Cerrar Sesión</a>
+                        </li>
+                    {{else}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/registro">Registrate</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/login">Iniciar Sesión</a>
+                        </li>
+                    {{/if}}
                 </ul>
             </div>
         </div>

@@ -1,0 +1,36 @@
+<section>
+  <h1>Inicia Sesión</h1>
+  <hr />
+  {{#if errores}}
+    {{#each errores}}
+      <ul>
+        <li> <div class="alert alert-danger">{{this.msg}}</div> </li>
+      </ul>   
+    {{/each}}
+  {{/if}}
+  <form action="/auth/login" method="post">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}"/>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        name="email"
+        id="email"
+        aria-describedby="emailHelp"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input
+        type="password"
+        name="password"
+        class="form-control"
+        id="contrasena"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+  <p>¿No estas registrado?</p>
+  <a href="/auth/registro">Registrate</a>
+</section>
