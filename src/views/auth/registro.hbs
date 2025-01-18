@@ -1,0 +1,37 @@
+<section>
+  {{#if errores}}
+    {{#each errores}}
+      <ul>
+        <li> <div class="alert alert-danger">{{this.msg}}</div> </li>
+      </ul>   
+    {{/each}}
+  {{/if}}
+  
+  <form action="/auth/registro" method="post">
+
+    <legend>Formulario de Registro</legend>
+    <input type="hidden" name="_csrf" value="{{csrfToken}}"/>
+    <div class="mb-3">
+      <label for="name" class="form-label"></label>
+      <input type="text" id="name" name="name" class="form-control" placeholder="Nombre completo"/>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Contraseña</label>
+      <input type="password" name="password" class="form-control" id="password" />
+    </div>
+
+     <div class="mb-3">
+      <label for="password2" class="form-label">Repetir contraseña</label>
+      <input type="password" name="password2" class="form-control" id="password2" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrarse</button>
+    <p>¿Ya tienes cuenta?</p> <a href="/auth/login">Inicia Sesion</a>
+  </form>
+</section>
