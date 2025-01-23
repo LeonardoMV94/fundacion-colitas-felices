@@ -1,31 +1,30 @@
 <div class="container">
      <h1 class="pt-3">Agregar Mascota</h1>
 <hr>
-<form action="/admin/agregarPet" method="post">
+<form action="/admin/agregarPet" method="post" enctype="multipart/form-data">
 
-<div class="form-floating mb-3">
-  <input type="text" class="form-control" id="name" placeholder="Nombre" name="name" required> 
-  <label for="floatingInput">Nombre</label>
-</div>
-<div class="form-floating">
-  <input type="text" class="form-control" id="species" placeholder="Especie" name="species" required>
-  <label for="floatingPassword">Especie</label>
-</div>
-<div class="form-floating mb-3">
-  <input type="text" class="form-control" id="breed" placeholder="Raza" name="breed" required>
-  <label for="floatingInput">Raza</label>
-</div>
-<div class="form-floating mb-3">
-  <input type="date" class="form-control" id="entry_date" name="entry_date" required>
-  <label for="floatingInput">Fecha de Ingreso</label>
-</div>
-<div class="form-floating mb-3">
-  <input type="text" class="form-control" id="photo_url" placeholder="photo_url" name="photo_url" required>
-  <label for="floatingInput">Photo URL</label>
-</div>
-
-<input type="hidden" id="adoption_status" name="adoption_status" value="Sin solicitud">
-   <button type="submit" class="btn btn-success">Agregar Mascota</button>
+  
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="name" placeholder="Nombre" name="name" required> 
+    <label for="floatingInput">Nombre</label>
+  </div>
+  <div class="form-floating">
+    <input type="text" class="form-control" id="species" placeholder="Especie" name="species" required>
+    <label for="floatingPassword">Especie</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="breed" placeholder="Raza" name="breed" required>
+    <label for="floatingInput">Raza</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="date" class="form-control" id="entry_date" name="entry_date" required>
+    <label for="floatingInput">Fecha de Ingreso</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="file" class="form-control" id="photo_url" placeholder="photo_url" name="archivo" accept="image/png, image/jpeg, image/jpg"  required>
+    <label for="photo_url">Photo URL</label>
+  </div>
+    <button type="submit" class="btn btn-success">Agregar Mascota</button>
 
 </form>
 </div>

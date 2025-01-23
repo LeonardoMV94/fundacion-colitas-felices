@@ -1,8 +1,10 @@
 import jwt from 'jsonwebtoken'
 import env from '../../env.js'
 
-const generarTokenJwt = ({id, name, rol}) => {
+export const generarTokenJwt = ({id, name, rol}) => {
     return jwt.sign({id, name, rol}, env.jwtSecret, {expiresIn: '1d'})
 }
 
-export default generarTokenJwt
+export function generarId() {
+    return Math.random().toString(32).substring(2) + Date.now().toString(32)
+}

@@ -14,7 +14,7 @@ const configExpress = (app) => {
   app.use(express.static(path.join(process.cwd(), "src", "public")));
 
   app.use( cookieParser() )
-  app.use(csurf({cookie: true}))
+  // app.use(csurf({cookie: true}))
 
   // hbs
   app.set("views", path.join(process.cwd(), "src", "views")); // views dentro de src
