@@ -1,6 +1,12 @@
-const middlewareJWT = (req, res, next) => {
+const isHaveToken = (req, res, next) => {
   next();
 };
 
+const isAdminRol = (req, res, next) => {
+  next();
+};
 
-export default middlewareJWT
+export {
+  isHaveToken,
+  isAdminRol
+}

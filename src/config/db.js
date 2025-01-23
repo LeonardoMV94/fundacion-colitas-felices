@@ -1,13 +1,13 @@
-import { Sequelize } from "sequelize";
-import env from "../../env.js";
+import { Sequelize } from 'sequelize';
+import env from '../../env.js';
 
 const db = new Sequelize(env.databaseUrl, {
-  dialect: "postgres",
+  dialect: 'postgres',
   logging: (sql, timing) => {
     console.log(`[Sequelize] Consulta: ${sql}`);
   },
   define: {
-    timestamps: true, // añade 2 columnas, createdAt y updatedAt
+    timestamps: true // añade 2 columnas, created_At y updated_At
   },
   pool: {
     max: 5, // maximo numero de conexiones al pool
@@ -17,4 +17,4 @@ const db = new Sequelize(env.databaseUrl, {
   }
 });
 
-export default db
+export default db;

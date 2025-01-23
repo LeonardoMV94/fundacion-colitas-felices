@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import { Op } from "sequelize";
-import generarTokenJwt from "../config/token.js";
+import {generarTokenJwt} from "../config/token.js";
 import verificarPassword from "../models/schema/validacionPassword.js";
 import bcrypt from 'bcrypt'
 import {validationResult} from 'express-validator'
