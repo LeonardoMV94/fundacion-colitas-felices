@@ -6,6 +6,11 @@ import middlewareGlobales from './src/config/middlewaresGlobales.js'
 
 const app = express();
 
+
+app.use((req, res, next) => { // DDOS -> rate limit -> cloudflare
+  console.log(`${req.method} - ${req.url} - ${req.ip} - ${new Date().toLocaleString()}`);
+  next()
+})
 // config -> hbs cors json urlEncoded
 configExpress(app)
 // midlewares -> 

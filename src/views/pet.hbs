@@ -1,25 +1,17 @@
 <h1>Lista de Mascotas</h1>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Especie</th>
-      <th>Raza</th>
-      <th>Estado de Adopción</th>
-      <th>Editar</th>
-    </tr>
-  </thead>
-  <tbody>
+<section class='cards-container container mt-4'>
+  <div class='row'>
     {{#each mascotas}}
-      <tr>
-        <td>{{this.id}}</td>
-        <td>{{this.name}}</td>
-        <td>{{this.species}}</td>
-        <td>{{this.breed}}</td>
-        <td>{{this.adoption_status}}</td>
-        <td><a href="/mascotas/editar/{{this.id}}"><button>Editar</button></a></td>
-      </tr>
+      <div class='col-md-4 mb-4'>
+        <div class='card h-100'>
+          <div class='card-body'>
+            <h3 class='card-title'>Nombre mascota #{{this.id}}</h3>
+            <p class='card-text'><strong>{{this.species}}</strong></p>
+            <p class='card-text'>{{this.breed}}</p>
+            <a href='/mascotas/{{this.id}}' class='btn btn-primary'>Detalles</a>
+          </div>
+        </div>
+      </div>
     {{/each}}
-  </tbody>
-</table>
+  </div>
+</section>

@@ -8,7 +8,7 @@ import {
   editarMascota,
   editarMascotaGet
 } from '../controllers/petController.js';
-import {isHaveToken} from '../config/auth.middleware.js';
+import {isHaveToken,isAdminRol} from '../config/auth.middleware.js';
 import validarFormLogin from '../models/schema/validarFormLogin.js';
 import {
   loginRenderController,
@@ -56,30 +56,26 @@ const routes = (app) => {
   router.get('/', homeController);
   router.get('/mascotas', petController); // localhost:3000/mascotas
   router.get('/mascotas/:id', onePetController);
-  router.post('/mascotas/:id', solicitudAdopcionMascota);
-  router.post('/mascotas/cancelar/:id', cancelarAdoption);
+  router.post('/mascotas/:id', isHaveToken, solicitudAdopcionMascota);
+  router.post('/mascotas/cancelar/:id',isHaveToken, cancelarAdoption);
   //router.get("/mascotas/editar/:id" );
 
   // admin
 
-  router.get('/admin/mascotas', isHaveToken, adminPetController);
+  router.get('/admin/mascotas', isHaveToken, isAdminRol, adminPetController);
 
-  router.post('/admin/mascotas', isHaveToken, adminPetController);
-  router.get('/admin/agregarPet', isHaveToken, adminPetControllerAgregarForm);
-  router.post('/admin/agregarPet', upload.single('archivo'),  adminPetControllerAgregar);
-  router.get('/admin/editar/:id', isHaveToken, adminPetControllerEdit);
-  router.post('/admin/editar/:id', isHaveToken, adminPetControllerEditSave);
-  router.get('/admin/eliminar/:id', isHaveToken, adminPetEliminar);
-  router.get('/admin/solicitudes/', isHaveToken, adminSolicitudes);
-  router.get('/admin/solicitud/aprobar/:id', adminSolicitudAprobar);
-  router.get('/admin/solicitud/denegar/:id', adminSolicitudDenegar);
+  router.post('/admin/mascotas', isHaveToken, isAdminRol, adminPetController);
+  router.get('/admin/agregarPet', isHaveToken, isAdminRol, adminPetControllerAgregarForm);
+  router.post('/admin/agregarPet', isHaveToken, isAdminRol, upload.single('archivo'),  adminPetControllerAgregar);
+  router.get('/admin/editar/:id', isHaveToken, isAdminRol, adminPetControllerEdit);
+  router.post('/admin/editar/:id', isHaveToken, isAdminRol, adminPetControllerEditSave);
+  router.get('/admin/eliminar/:id', isHaveToken, isAdminRol, adminPetEliminar);
+  router.get('/admin/solicitudes/', isHaveToken, isAdminRol, adminSolicitudes);
+  router.get('/admin/solicitud/aprobar/:id',isHaveToken, isAdminRol,  adminSolicitudAprobar);
+  router.get('/admin/solicitud/denegar/:id',isHaveToken, isAdminRol,  adminSolicitudDenegar);
 
-  router.get('/admin/mascotas/editar/:id', editarMascotaGet);
-  router.post(
-    '/admin/mascotas/editar/:id',
-    middlewareValidadorFormEditPet,
-    editarMascota
-  );
+  router.get('/admin/mascotas/editar/:id', isHaveToken, isAdminRol, editarMascotaGet);
+  router.post('/admin/mascotas/editar/:id', isHaveToken, isAdminRol, middlewareValidadorFormEditPet, editarMascota);
 
   // auth
   router.get('/auth/login', loginRenderController);

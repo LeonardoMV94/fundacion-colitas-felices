@@ -9,10 +9,10 @@
             </div>
             
             <div class="col-md-6">
-                <h1 class="mb-4">Nombre mascota</h1>
-                <p><strong>especie</strong></p>
-                <p>raza</p>
-                <p>estado</p>
+                <h1 class="mb-4">Nombre mascota: {{mascota.name}}</h1>
+                <p><strong>especie: {{mascota.species}}</strong></p>
+                <p>raza: {{mascota.breed}}</p>
+                <p>estado: {{mascota.adoption_status}}</p>
                 {{#if token}}
                     {{#if (eq mascota.adoption_status 'Sin solicitud')}}
                         <form action="/mascotas/{{mascota.id}}" method="post">    
